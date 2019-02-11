@@ -1,5 +1,6 @@
-package com.javartisan.quartz;
+package com.javartisan.quartz.cron;
 
+import com.javartisan.quartz.HelloQuartzJob;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
