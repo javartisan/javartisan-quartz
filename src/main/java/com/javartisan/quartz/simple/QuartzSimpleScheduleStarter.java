@@ -41,9 +41,13 @@ public class QuartzSimpleScheduleStarter {
         scheduler.scheduleJob(jobDetail, trigger);
 
         // 听见监听器
-        scheduler.getListenerManager().addJobListener(new SimpleJobListener(), KeyMatcher.keyEquals(new JobKey("HelloQuartzJob", "HelloQuartzJobGroup")));
-        scheduler.getListenerManager().addTriggerListener(new SimpleTriggerListener(), KeyMatcher.keyEquals(new TriggerKey("HelloQuartzJobTrigger", "HelloQuartzJobTriggerGroup")));
+        SimpleJobListener simpleJobListener = new SimpleJobListener();
+        scheduler.getListenerManager().addJobListener(simpleJobListener, KeyMatcher.keyEquals(new JobKey("HelloQuartzJob", "HelloQuartzJobGroup")));
+        SimpleTriggerListener simpleTriggerListener = new SimpleTriggerListener();
+        scheduler.getListenerManager().addTriggerListener(simpleTriggerListener, KeyMatcher.keyEquals(new TriggerKey("HelloQuartzJobTrigger", "HelloQuartzJobTriggerGroup")));
 
+        // 移除监听器
+        scheduler.getListenerManager().removeJobListener(simpleTriggerListener.getName());
         TimeUnit.SECONDS.sleep(60);
         //6：停止调度器
         scheduler.shutdown();
